@@ -1,0 +1,362 @@
+/*Globel Stylings */
+
+* {
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+html {
+	font-size:62.5%;
+	scroll-behavior:smooth;
+}
+body {
+	font-family:"Poppins",sans-serif;
+}
+#logo {
+	font-size:2.6rem;
+	font-family:"Pattaya",serif;
+	font-weight:normal;
+}
+li,
+button,
+label,
+input,
+p {
+	font-size:2rem;
+}
+h2 {
+	font-size:4.8rem;
+}
+h3 {
+	font-size:3rem;
+	font-weight:normal;
+}
+h4,h5 {
+	font-size:2.8rem;
+}
+
+a{
+	color:white;
+	text-decoration:none;
+}
+/*Only add this if you are sure all your buttons are the same*/
+button {
+	color:#fff;
+	padding:2rem 6rem;
+	background:#4c6e97;
+	border:none;
+	font-size:1.8rem;
+	cursor:pointer;
+	/*Method 1 for adding animations*/
+	/*transition allows us to do some animation by changing the trasition time from one phase to another*/
+	/*1st value is the property we want to animate 2nd is the duration 3rd is the easing etc*/
+	transition:background .5s ease-in-out; 	
+	/*This has a delay of 2s-->  transition:background .5s ease-in-out 2s;*/
+	/*If you give it a value of all it will transition everything inside the :hover */
+	/*You can add them individually Eg.transition-delay transition-duration etc*/
+	/*Heres how to apply our keyframe animations*/
+	animation:buttonanimations 2s alternate; 
+	/*You can give it an infinite value and it will animate forever -(:*/
+	/*Or a value of alternate.in this case the colors will alternate randomly*/
+	/*at the end you can add a delay of x seconds.it will only start after the delay*/
+	/*A value of forward will keep it at the last transition it wont goback to default*/
+	/*animation-iteration-count:3 ->this will repeat 3 times.YOu can set it to infinte*/
+}
+button:hover {
+	background:#27394e;
+}
+/*Nav Section with Hero */
+
+.main-head {
+	background:#131c27;
+	color:white;
+	position:sticky;
+	top:0px;
+	z-index:3;
+}
+
+nav {
+	min-height:10vh;
+	padding:2rem; /*A little padding just to space them nicely */
+	display:flex;
+	/*to ensure content of our entire page is constrained within a specific margin we can use this trick*/
+	width:90%; /*You can use max-width:1400px; trick still works*/
+	margin:auto; /*This ensures the remaining space is equally distributed on the right an left sides*/
+	align-items:center;
+
+}
+nav ul {
+	display:flex;
+	flex:1 1 40rem; /*This ensures the containers are of equal size.Note if you use 100% for the basis it allows the containers to be of equal size regardless of the content.Cool Trick i learnt from kevin Powell	 
+	It removes the need to add a width to the ul for justify-content to work*/
+	justify-content:space-around;
+	list-style:none;
+}
+#logo {
+	flex:2 1 40rem; 
+}
+.hero {
+	color:white;
+	background:linear-gradient(rgba(0,0,0,0.5),transparent) ,url("img/landing-page.jpg");
+	min-height:90vh;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-position:center;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	text-align:center;
+}
+.hero h3 {
+	padding:5rem;
+}
+
+/*The Benefits Section */
+
+#locations {
+	min-height: 100vh;
+	background:linear-gradient(rgba(0,0,0,0.5),transparent) , url("img/new-york-page.png");
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:cover;
+	display:flex;
+	position:relative;/*This is for our clouds*/
+	/*To prevent the clouds from moving outside the locations div we can hide it once it overflows*/
+ 	overflow:hidden;  	
+}
+.locations-head {
+	align-items:center;
+	width:90%;
+	margin:auto; 
+	line-height:1.5;
+}
+.locations-head h2 {
+	padding:1rem 0;
+	text-decoration:underline;
+	/*text-decoration-thickness*/
+}
+
+.locations-head h3 {
+	/*A workaround trick to adding linear-gradient on text However it adds the gradient on the entire container*/
+	background:linear-gradient(#131c27,#663b34);
+	/*So we need to clip the the background leaving only the text portion */
+	background-clip:text; 
+	-webkit-background-clip:text; /*For browser accessibility*/
+	/*Now clip alone doesnt help much as the background color we added is behind  the original color of the h3(black-color) So we need to make the text
+	transparent thus allowing us to see the gradient behind*/
+	color:transparent; 
+	-webkit-text-fill-color:transparent; /*this and color transparent do the same thing */
+	 /*what is webkit ? it's Part of a set of prefixes that helps to *enable css properties that some browsers dont support*/
+	padding:10px;
+}
+/*Adding The clouds and Animations*/
+
+.cloud {
+	position:absolute;
+	top:0%;
+	right:0%
+}
+.moving-cloud-1 {
+	/*Here we calling the animation AKA Keyframes*/
+	animation:cloudanimation 3s infinite alternate ease-in-out;
+}
+.moving-cloud-2 {
+	/*We dont want both clouds stacking each other*/
+	top:20%;
+	/*But now the second image on top of the first and  we dont want to see the outline*/
+	 /* to solve this we can use the Z-index this allows us to push some elements behind/above others*/
+	z-index:-1; /*Positive values on top,Negative values moves elements behind*/
+	/*In this case z-index seemds to be adding opacity to differentiate the 2 items since they are identical but you can change this*/
+	opacity:1;
+	animation:cloudanimation 3.5s infinite alternate ease-in-out;
+}
+
+/*Method 2 for animations is using Keyframes */
+/*We can give our keyframe any name we want.We can reference it at the desired element*/
+
+@keyframes buttonanimations {
+	/*the % tells us what must happen at what stage of the animation.Very Powerful !1*/
+	/*We can  use "to" and "from" as selectors instead of %'s but our choices will be limited*/
+	0%{
+		background:yellow;
+	}
+	50%{
+		background:orange;
+	}
+	100%{
+		background:red;
+	}
+}
+@keyframes cloudanimation {
+	from {
+		transform:translate(10% ,-10%); /*Moves 10 down and 10 to the right-> (-10)[X-Y axis]*/
+	}
+	to {
+		transform:translate(0%, 0%);
+	}
+}
+/*The Benefits Section */
+.benefits-head {
+	background:#343c44;
+	color:white;
+	padding:3rem;
+	min-height:30vh;
+	/*You dont have to use flex but if you want its fine*/
+	display:flex;
+	justify-content:center;
+	flex-direction:column;
+	align-items:center;
+	text-align:center;
+}
+.benefits-head h3 {
+	padding:1rem;
+	line-height:1.6;
+}
+.cards {
+	width:90%;
+	margin:auto;
+	min-height:70vh;
+	display:flex;
+	align-items:center;
+	/*Always add flex-wrap else it defeats the point of having flex-basis*/
+	flex-wrap:wrap;
+}
+.card {
+	margin:2rem 5rem;
+	flex:1 1 25rem; /*You Know this Trick Right !!*/
+	min-height:40vh;
+	/*This double box-shadow  trick adds a special effect*/
+	box-shadow:0px 10px 10px rgba(0,0,0,0.1),0px 20px 20px rgba(0,0,0,0.1);
+	text-align:center;
+}
+.card img {
+	max-width:15%;
+	max-height:50%;
+	margin:2.0rem 0;
+}
+.img-block {
+	background-color:#4c6e97;
+	height:10vh;
+}
+.card h4 {
+	padding-top:3rem; 
+}
+.card p {
+	padding:1rem;
+	line-height:1.6;
+}
+/*Contact Section*/
+
+#contacts {
+	min-height:100vh; /*We want this page to fill the whole viewport*/
+	background:linear-gradient(rgba(0,0,0,0.5),transparent) , url("img/contact-mountain.png");
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:cover;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.form-wrapper {
+	background:rgba(19,28,39,0.9);
+	width:60%;
+	color:white;
+	border-radius:20px;
+}
+.form-head {
+	text-align:center;
+	padding:4rem;
+}
+.name-form, .email-form {
+	padding:3rem;
+	text-align:center;
+}
+.form-wrapper label {
+	margin:0rem 3rem; /*This is to separate the label from the input*/
+}
+.form-wrapper button {
+	width:100%;
+	padding:2rem;
+	margin-top:8rem;
+	border-bottom-left-radius:20px;
+	border-bottom-right-radius:20px;
+}
+.form-wrapper input {
+	padding:1rem 3rem;
+}
+
+/*Footer-Section*/
+footer {
+	background:rgba(19,28,39,1);
+	color:white;
+}
+.footer-wrapper {
+	width:90%;
+	margin:auto;
+	padding:2rem;
+	display:flex;
+	align-items:center;
+	min-height:10vh;
+	flex-wrap:wrap;
+}
+.footer-wrapper h5 {
+	flex:1 1 40rem;
+}
+.footer-wrapper ul {
+	list-style:none;
+	display:flex;
+	justify-content:space-between;
+	flex:1 1 40rem; /*The images will be evenly spaced within their own div*/
+}
+/*This is for accessibility.we give the button a focus class*/
+button:focus {
+	background:#2c3f57;
+	outline-style:solid;
+}
+
+/*All the media Queries */
+
+@media screen and (max-width:928px){
+	html {
+		/*Heres a Better way of adding the font-size instead of changing everything	*/
+		font-size:45%;
+	}
+	nav {
+		display:flex;
+		flex-wrap:wrap;
+		text-align:center;
+	}
+	#logo {
+		padding-bottom:1rem;
+	}
+	/*Here we try to add media query to the clouds.try changing the hight*/
+	.cloud {
+		height:50rem;
+		/*Sometimes the image might prevent you from being able to grab text.if thats the case add pointer events none*/
+		pointer-events:none;
+	}
+	/*If that doesnt help try using z-index to push the item behind the text */
+	.moving-cloud-1 {
+		z-index: -1;
+	}
+	.moving-cloud-2 {
+		z-index: -2;
+		opacity:0.5; /*Just so it's not so dark*/
+	}
+	.locations-head h3 {
+		/*Text is not sitting well with the background.we can fix this by adding a background color:*/
+		background:rgba(19,28,39,0.6); /*But nothing shows this is we made the color:transparent  earlier on to add the linear-gradient remember*/
+		color:white;
+	}
+	.form-wrapper {
+		width:100%; /*This is so its fits well on small devices*/
+	}
+	 
+	footer {
+		text-align:center;
+	}
+	footer h5 {
+		padding-bottom:2rem;
+	}
+}
+
